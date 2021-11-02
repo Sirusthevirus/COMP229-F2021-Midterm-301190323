@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
 });
 
 //  GET the Book Details page in order to add a new Book
-router.get('/details', (req, res, next) => {
+router.get('/add', (req, res, next) => {
   book.find( (err, books) => {
     if (err) {
       return console.error(err);
@@ -40,12 +40,13 @@ router.get('/details', (req, res, next) => {
 });
 
 // POST process the Book Details page and create a new Book - CREATE
-router.post('/details', (req, res, next) => {
+router.post('/add', (req, res, next) => {
     let newBook = book({
-      "title": req.body.title,
-      "price": req.body.price,
-      "author": req.body.author,
-      "genre": req.body.genre
+      "Title": req.body.title,
+      "Description": "",
+      "Price": req.body.price,
+      "Author": req.body.author,
+      "Genre": req.body.genre
   });
 
   book.create(newBook, (err, Book) =>{
@@ -56,6 +57,8 @@ router.post('/details', (req, res, next) => {
       }
       else
       {
+          console.log(req.body);
+
           // refresh the book list
           res.redirect('/books');
       }
@@ -65,6 +68,7 @@ router.post('/details', (req, res, next) => {
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
   let id = req.params.id;
+  console.log(id);
 
   book.findById(id, (err, bookToEdit) => {
       if(err)
@@ -75,7 +79,7 @@ router.get('/:id', (req, res, next) => {
       else
       {
           //show the edit view
-          res.render('books/details', {title: 'Edit Book', book: bookToEdit})
+          res.render('books/details', {title: 'Edit Book', books: bookToEdit})
       }
   });
 });
@@ -86,10 +90,11 @@ router.post('/:id', (req, res, next) => {
 
   let updatedBook = book({
       "_id": id,
-      "title": req.body.title,
-      "price": req.body.price,
-      "author": req.body.author,
-      "genre": req.body.genre
+      "Title": req.body.title,
+      "Description": "",
+      "Price": req.body.price,
+      "Author": req.body.author,
+      "Genre": req.body.genre
   });
 
   book.updateOne({_id: id}, updatedBook, (err) => {

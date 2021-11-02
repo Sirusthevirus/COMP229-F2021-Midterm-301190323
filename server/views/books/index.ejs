@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-offset-1 col-md-10">
           <h3>Favourite Books List </h3>
-          <a href="books/details" class="btn btn-primary"><i class="fa fa-plus"></i> Add a book</a>
+          <a href="books/add" class="btn btn-primary"><i class="fa fa-plus"></i> Add a book</a>
           <br>
           <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover">
@@ -20,7 +20,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Template Row -->
                 <% for (let count = 0; count < books.length; count++) { %>
                 <tr>
                   <td><%= books[count].Title %></td>
@@ -29,7 +28,7 @@
                   <td class="text-center"><%= books[count].Genre %></td>
 
                   <td class="text-center col-1">
-                    <a href="/books/details/<%= books[count]._id %>" class="btn btn-primary btn-sm">
+                    <a href="/books/<%= books[count]._id %>" class="btn btn-primary btn-sm">
                     <i class="fas fa-pencil-alt"></i>Edit</a>
                 </td>
                 <td class="text-center col-1">
